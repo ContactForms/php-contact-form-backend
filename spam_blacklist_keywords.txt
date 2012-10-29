@@ -1,0 +1,8 @@
+# Keywords blacklist for the anti-spam filter
+# Any regular expression syntax can be used here
+# 	(without the delimiters)
+# All keywords are case insensitive.
+# Lines starting with '#' are ignored.
+viagra
+cialis
+payday loan
