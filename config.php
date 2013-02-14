@@ -16,6 +16,12 @@ $COMMENT_RECEIVED = "comment_received.html";
 // content.
 $COMMENT_CONTAINS_SPAM = "comment_contains_spam.html";
 
+// The contents of the following file (relative to this PHP file) will be
+// displayed if there was no comment, or if the comment contains severely
+// incorrect data. Customise it to your heart's content.
+$COMMENT_INVALID = "redirect_to_blog.html";
+
+
 // Format of the date you want to use in your comments.  See
 // http://php.net/manual/en/function.date.php for the insane details of this
 // format.
