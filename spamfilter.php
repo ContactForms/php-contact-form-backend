@@ -18,6 +18,17 @@
 
 function spam_check_text($text, $blacklist = 'spam_blacklist_keywords.txt')
 {
+	return regex_match_from_file($text, $blacklist);
+}
+
+function spam_check_url($url, $blacklist = 'spam_blacklist_urls.txt')
+{
+	// I'm lazy. Just do the same here
+	return regex_match_from_file($url, $blacklist);
+}
+
+function regex_match_from_file($text, $blacklist)
+{
 	$keywords = file($blacklist);
 
 	foreach($keywords as $keyword) 
@@ -35,9 +46,3 @@ function spam_check_text($text, $blacklist = 'spam_blacklist_keywords.txt')
 	// No spam found
 	return false;
 }
-
-function spam_check_url($url, $blacklist = 'spam_blacklist_urls.txt')
-{
-	//TODO
-}
-
