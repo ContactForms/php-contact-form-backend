@@ -81,6 +81,17 @@ function save_as_file($filename, $data)
 	return true;
 }
 
+
+// Automatically die if the user accessed this page directly, 
+//  rather than by the submit button on the blog
+if (!isset($_POST['submit']))
+{
+	log_to("Tried to access `commentsubmit.php` without any or with invalid POST data.");
+	include $COMMENT_INVALID;
+	die();
+}
+
+
 $COMMENTER_NAME = get_post_field('name', "Anonymous");
 $COMMENTER_EMAIL_ADDRESS = get_post_field('email', $EMAIL_ADDRESS);
 $COMMENTER_WEBSITE = get_post_field('link');
