@@ -32,6 +32,7 @@ lasix
 tadalafil
 valium
 vigrx
+Capsiplex
 zantac
 stendra
 extenze
@@ -39,55 +40,81 @@ semenax
 vardenafil
 imitrex
 Nizoral
+Natox
 vimax
 acne treatment
 volume\s?pills
 SizeGenetics
+eye secrets
 tramadol
 imitrex
+proactol
 pro\s*solution
 dapoxetine
 vigorelle
+Meratol
 raspberry ketone
 modafinil
 penis enlargement
 GenF20
 human growth hormone
+Nuratrim
 Phen\s?375
 volume pills
 anti\s?aging
 pay\s?day loan
+archeage gold
+replica (Rolex|watch)
+louboutin
 louis vuitton
 ralph lauren
 kobe bryant
 air max
 jimmy choo
+dre beats
+beats by dre
 coach (factory )?outlet
-nike\s*(store|shop|gs)
-official\s*(store|shop|jersey)
+nike\s*(store|shop|gs|shox)
+(official|cheap)\s*(store|shop|jersey)
 ugg\s*(sale|boots)
 (bears|patriots|seahawks|packers|ravens)\s*(store|online|jersey|official)
 car\s*loan
 moncler outlet
 vivienne westwood
+gucci
 abercrombie en ligne
 abercrombie\s*(france|canada)
+alternatefuel
+online dating
 hair loss
+Har\s?Vokse
+Clear Skin Max
 hide\s*my\s*ass
-(fun|free|online|en ligne|gold|gratuits?|mobile)\s*(casino|black\s?jack|poker|roulette|slots|keno)
-(blackjack|roulette|casino|poker|slot( machine)?) (online|en ligne)
+(fun|free|online|en ligne|gold|gratuits?|mobile|samsung)\s*(gambling|texas|casino|black\s?jack|poker|roulette|slots|keno)
+(blackjack|roulette|casino|poker|slot( machine)?) (online|en ligne|virtuel|betting)
 (video|penny|machine) slots
-slots? (games|card|for fun|machine)
+slots? (games|card|for fun|machine|online)
 spin palace
 (lake|island|nouveau|swiss|bovada|betway|batway|ladbrokes|europa) (casino|poker)
 casino (travel|europ|game|en ligne|en linea)
 machine a sous
 breast enhancement
 credit repair
+home (phone|broadband)
 no win no fee
 32\s*red
-(car|life)\s*insurance
-(go\s?daddy|host\s?monster|host\s?gator|blue\s?host)\s*(hosting|review|discount|coupon)
+horse racing
+(criminal|defense|family) lawyer
+(car|life|building)\s*insurance
+(accident|injury|compensation) claims?
+(currency|money)\s*transfer
+(go\s?daddy|host\s?monster|host\s?gator|blue\s?host|Host\s?papa|In\s?motion|just\s?host)\s*(web hosting|hosting|review|discount|coupon|c ?panel|reseller)
+(managed|vps|web|joomla|dedicated|reseller|windows|linux|a2|wordpress|server)\s*(hosting)
+host review
+Trade Plus
+Etoro
+(eternity|diamond)\s?(ring|earring)
+Anyoption
 pokies
 cigarette drops
 electronic cigarette
@@ -107,22 +134,28 @@ Options Binaires
 Binary options?
 JesExtender
 green coffee (bean )?extract
-(london|usa) hotels
+(london|usa) (hotels?|spas?)
 24option
 <a href="[^"]*">Slots<\/a>
 <a href="[^"]*">Casino<\/a>
 <a href="[^"]*">HGH<\/a>
 reverse phone lookup
+cheap toner
 vpn download
-(plumbers?|locksmiths?|storage) (east|south)?\s?london
+(plumbers?|locksmiths?|storage|repairs?|pest control|electricians?|accountants?|solicitors?) (in)?\s?(north|east|south|west)?\s?(london|vancouver|ottowa|toronto|Mississauga)
 pokerstars
-debt (consolidation|relief)
+(debt|financial) (consolidation|relief|advice|management|counselling)
+electricity prices
 mini forex
-forex (course|trading)
+#forex (course|trading)
+forex
+Ioption
 colored contacts
 lottery results
-engagement rings
+(wedding|engagement) rings?
 buy (youtube|twitter)
 personal injury solicitor
 
+#Used to test injection
+\$RandomStr
 
