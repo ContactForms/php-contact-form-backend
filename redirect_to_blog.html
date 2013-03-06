@@ -1,0 +1,22 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd"> 
+<html> 
+	<head> 
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<?php 
+			$return_url = 'http://iqandreas.github.com/';
+			$return_delay = 5; //Number of seconds to linger on this page before redirecting back to the static site
+			echo "<meta http-equiv=\"refresh\" content=\"$return_delay;url='$return_url'\" />";
+		?>
+		<title>Invalid comment</title> 
+	</head>
+<body>
+<h1>Invalid comment</h1>
+	<p>Oops, it looks like there was something wrong with your comment. Perhaps you didn't write one? Contact the blog's owner if this problem persists.</p>
+	<?php if (isset($return_url))
+	{
+		echo '<p>You are now returning to the blog. Click the link if you are not redirected automatically.</p>';
+		echo '<p><a href="'.$return_url.'">'.$return_url.'</a></p>';
+	} ?>
+</body>
+</html>
