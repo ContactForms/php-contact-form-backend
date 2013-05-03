@@ -9,17 +9,17 @@ $EMAIL_ADDRESS = "blogger@example.com";
 // The contents of the following file (relative to this PHP file) will be
 // displayed after the comment is received.  Customise it to your heart's
 // content.
-$COMMENT_RECEIVED = "comment_received.html";
+$COMMENT_RECEIVED = "html/comment_received.html";
 
 // The contents of the following file (relative to this PHP file) will be
 // displayed if the comment contains spam.  Customise it to your heart's
 // content.
-$COMMENT_CONTAINS_SPAM = "comment_contains_spam.html";
+$COMMENT_CONTAINS_SPAM = "html/comment_contains_spam.html";
 
 // The contents of the following file (relative to this PHP file) will be
 // displayed if there was no comment, or if the comment contains severely
 // incorrect data. Customise it to your heart's content.
-$COMMENT_INVALID = "redirect_to_blog.html";
+$COMMENT_INVALID = "html/redirect_to_blog.html";
 
 
 // Format of the date you want to use in your comments.  See
