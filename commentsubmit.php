@@ -19,7 +19,7 @@
 require_once 'config.php';
 
 require_once 'mail.php';
-require_once 'spamfilter.php';
+require_once 'php-spam-filter/spamfilter.php';
 
 function get_post_field($key, $defaultValue = "")
 {
@@ -116,7 +116,7 @@ log_to($title);
 
 
 $SPAM = spam_check_text($COMMENT_BODY);
-if (!empty($SPAM))
+if ($SPAM)
 {
 	// Save a backup of the file for double checking later for false positives
 	$spam_filename = 'spam' . DIRECTORY_SEPARATOR . $file_name;
