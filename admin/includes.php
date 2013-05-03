@@ -8,7 +8,7 @@ define(RETURN_LINK, NL."<a href='index.php'>&lt; Return to admin page</a>".NL.NL
 define(ROOT_DIR, 	 dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
 define(COMMENTS_DIR, ROOT_DIR . 'comments' . DIRECTORY_SEPARATOR);
 define(SPAM_DIR, 	 ROOT_DIR . 'spam' . DIRECTORY_SEPARATOR);
-define(LOG_FILE, 	 ROOT_DIR . 'mail.log');
+define(LOG_FILE, 	 ROOT_DIR . 'admin' . DIRECTORY_SEPARATOR . 'mail.log');
 
 // RELATIVE
 //define('COMMENTS_DIR', 	'../comments');

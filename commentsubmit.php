@@ -47,7 +47,7 @@ function get_post_data_as_yaml()
 	return $yaml_data;
 }
 
-function log_to($string, $filename = 'mail.log')
+function log_to($string, $filename = 'admin/mail.log')
 {
 	$log_date = date(DateTime::ATOM);
 	try
