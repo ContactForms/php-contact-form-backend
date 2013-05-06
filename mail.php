@@ -112,6 +112,7 @@ class Mail
 		if (!empty($reply_to))	$headers []= "Reply-To: $reply_to";
 		
 		$headers []= "X-Mailer: PHP/" . phpversion();
+		$headers []= "Message-ID: <" . sha1(microtime()) . "@" . $_SERVER['SERVER_NAME'] . ">";
 		$headers []= "MIME-Version: 1.0";
 		$headers []= "Content-Type: multipart/mixed; boundary=\"$uid\"";
 		$headers []= "";
