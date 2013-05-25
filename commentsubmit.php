@@ -115,7 +115,8 @@ $title = "Comment from $COMMENTER_NAME on '$POST_TITLE'";
 log_to($title);
 
 
-$SPAM = spam_check_text($COMMENT_BODY);
+$filter = new SpamFilter();
+$SPAM = $filter->check_text($COMMENT_BODY);
 if ($SPAM)
 {
 	// Save a backup of the file for double checking later for false positives

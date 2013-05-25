@@ -2,14 +2,15 @@
 <?php
 	require_once 'includes.php';
 	require_once SPAMFILTER;
-	if (blacklist_update_available())
+	$filter = new SpamFilter();
+	if ($filter->blacklist_update_available())
 	{
 		echo 'A new version of the spam blacklists is available ';
 		echo '[<a href="blacklist.php?update">update</a>]';
 	}
 	else
 	{
-		echo 'Spam blacklist is up to date (using version '.BLACKLIST_VERSION.')';
+		echo 'Spam blacklist is up to date (using version '.$filter->version().')';
 	}
 ?>
 <ul>

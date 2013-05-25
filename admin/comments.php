@@ -64,7 +64,7 @@ $yaml_files = glob(COMMENTS_DIR . '*.yaml');
 $yaml_files = array_map('basename', $yaml_files);
 
 $num_comments = count($yaml_files);
-$max_comments = 3;
+$max_comments = 5;
 $num_files_opened = 0;
 
 $displayed_comments = ($max_comments > $num_comments) ? $num_comments : $max_comments;
