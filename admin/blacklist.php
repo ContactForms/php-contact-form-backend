@@ -2,7 +2,7 @@
 
 include_once 'includes.php';
 
-function delete_comment($delete_file_name)
+function delete_comment($delete_file_name, $reason = "")
 {
 	$delete_file_name = basename($delete_file_name); // Prevent injection (just in case)
 	$delete_file = COMMENTS_DIR . $delete_file_name;
@@ -10,7 +10,7 @@ function delete_comment($delete_file_name)
 	if (file_exists($delete_file))
 	{
 		unlink($delete_file);
-		echo "<b>Deleted</b> <i>$delete_file_name</i>".NL;
+		echo "<b>Deleted</b> <i>$delete_file_name</i> $reason".NL;
 	}
 	else
 	{
@@ -25,7 +25,7 @@ if (isset($_GET['update']))
 	require_once SPAMFILTER;
 	$filter = new SpamFilter();
 	$version = $filter->update_blacklists();
-	echo "Blacklists updated to $version().".NL;
+	echo "Blacklists updated to $version.".NL;
 	echo "<a href=\"blacklist.php?run=comments\">Re-run spam check using the new definitions</a> (not required, but recommended)".NL;
 	
 }
@@ -51,7 +51,7 @@ elseif (isset($_GET['run']))
 			$SPAM = $filter->check_text($file_contents);
 			if (!empty($SPAM))
 			{
-				delete_comment($filename);
+				delete_comment($filename, "for spam keyword '$SPAM'");
 				$num_files_deleted++;
 			}
 		}
