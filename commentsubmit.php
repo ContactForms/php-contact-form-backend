@@ -96,16 +96,20 @@ $COMMENTER_NAME = get_post_field('name', "Anonymous");
 $COMMENTER_EMAIL_ADDRESS = get_post_field('email', $EMAIL_ADDRESS);
 $COMMENTER_WEBSITE = get_post_field('link');
 $COMMENT_BODY = get_post_field('comment', "");
+unset($_POST['comment']);
 $COMMENT_DATE = date($DATE_FORMAT);
 
 $POST_TITLE = get_post_field('post_title', "Unknown post");
 $POST_ID = get_post_field('post_id', "");
 unset($_POST['post_id']);
 
-
-$yaml_data = "post_id: $POST_ID\n";
+$yaml_data  = "---\n";
+$yaml_data .= "post_id: $POST_ID\n";
 $yaml_data .= "date: $COMMENT_DATE\n";
 $yaml_data .= get_post_data_as_yaml();
+$yaml_data .= "---\n";
+
+$yaml_data .= $COMMENT_BODY;
 
 $file_date = date('Y-m-d-H-i-s');
 $file_name = Mail::filter_filename($POST_ID, '-') . "-comment-$file_date.yaml";
