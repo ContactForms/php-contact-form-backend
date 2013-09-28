@@ -89,7 +89,7 @@ if (!isset($_POST['submit']))
 	include $COMMENT_INVALID;
 	die();
 }
-unset($_POST['submit'])
+unset($_POST['submit']);
 
 $COMMENTER_NAME = get_post_field('name', "Anonymous");
 $COMMENTER_EMAIL_ADDRESS = get_post_field('email', $EMAIL_ADDRESS);
@@ -119,47 +119,59 @@ log_to($title);
 
 
 $filter = new SpamFilter();
-$SPAM = $filter->check_text($COMMENT_BODY);
+$SPAM = $SPAMCHECK_COMMENTS ? $filter->check_text($COMMENT_BODY) : false;
 if ($SPAM)
 {
-	// Save a backup of the file for double checking later for false positives
-	$spam_filename = 'spam' . DIRECTORY_SEPARATOR . $file_name;
-	if (save_as_file($spam_filename, $yaml_data))
-		{ log_to("\tSuspected SPAM saved as '$spam_filename'"); }
+	if ($SAVE_SPAM_COMMENTS)
+	{
+		// Save a backup of the file for double checking later for false positives
+		$spam_filename = 'spam' . DIRECTORY_SEPARATOR . $file_name;
+		if (save_as_file($spam_filename, $yaml_data))
+			{ log_to("\tSuspected SPAM saved as '$spam_filename'"); }
+	}
 	
 	include $COMMENT_CONTAINS_SPAM;
 	die();
 }
 else
 {
-	$comment_filename = 'comments' . DIRECTORY_SEPARATOR . $file_name;
-	if (save_as_file($comment_filename, $yaml_data))
-		{ log_to("\tComment saved as '$comment_filename'"); }
+	if ($SAVE_COMMENTS)
+	{
+		$comment_filename = 'comments' . DIRECTORY_SEPARATOR . $file_name;
+		if (save_as_file($comment_filename, $yaml_data))
+			{ log_to("\tComment saved as '$comment_filename'"); }
+	}
 }
 
 
-$subject = $title;
-
-$message = "$COMMENT_BODY\n\n";
-$message .= "----------------------\n";
-$message .= "$COMMENTER_NAME\n";
-$message .= "$COMMENTER_WEBSITE\n";
-
-$mail = new Mail($subject, $message);
-$mail->set_from($EMAIL_ADDRESS, $COMMENTER_NAME);
-$mail->set_reply_to($COMMENTER_EMAIL_ADDRESS, $COMMENTER_NAME);
-
-$mail->header_line_ending = $HEADER_LINE_ENDING;
-$mail->set_attachment($yaml_data, $file_name);
-
-
-if ($mail->send($EMAIL_ADDRESS))
+if ($SEND_COMMENTS)
 {
-	log_to("\tSent as email to '$EMAIL_ADDRESS'");
-	include $COMMENT_RECEIVED;
+	$subject = $title;
+
+	$message = "$COMMENT_BODY\n\n";
+	$message .= "----------------------\n";
+	$message .= "$COMMENTER_NAME\n";
+	$message .= "$COMMENTER_WEBSITE\n";
+
+	$mail = new Mail($subject, $message);
+	$mail->set_from($EMAIL_ADDRESS, $COMMENTER_NAME);
+	$mail->set_reply_to($COMMENTER_EMAIL_ADDRESS, $COMMENTER_NAME);
+
+	$mail->header_line_ending = $HEADER_LINE_ENDING;
+	$mail->set_attachment($yaml_data, $file_name);
+
+
+	if ($mail->send($EMAIL_ADDRESS))
+	{
+		log_to("\tSent as email to '$EMAIL_ADDRESS'");
+	}
+	else
+	{
+		log_to("\tERROR: Unable to send email to '$EMAIL_ADDRESS'. Diagnose ASAP!");
+		echo "There was a problem sending the comment. Please contact the site's owner.";
+		die();
+	}
 }
-else
-{
-	log_to("\tERROR: Unable to send email to '$EMAIL_ADDRESS'. Diagnose ASAP!");
-	echo "There was a problem sending the comment. Please contact the site's owner.";
-}
+
+include $COMMENT_RECEIVED;
+
