@@ -77,7 +77,6 @@ function save_as_file($filename, $data)
 		return false;
 	}
 	
-	
 	return true;
 }
 
@@ -90,7 +89,7 @@ if (!isset($_POST['submit']))
 	include $COMMENT_INVALID;
 	die();
 }
-
+unset($_POST['submit'])
 
 $COMMENTER_NAME = get_post_field('name', "Anonymous");
 $COMMENTER_EMAIL_ADDRESS = get_post_field('email', $EMAIL_ADDRESS);
@@ -126,9 +125,7 @@ if ($SPAM)
 	// Save a backup of the file for double checking later for false positives
 	$spam_filename = 'spam' . DIRECTORY_SEPARATOR . $file_name;
 	if (save_as_file($spam_filename, $yaml_data))
-	{
-		log_to("    Suspected SPAM saved as '$spam_filename'");
-	}
+		{ log_to("\tSuspected SPAM saved as '$spam_filename'"); }
 	
 	include $COMMENT_CONTAINS_SPAM;
 	die();
@@ -137,9 +134,7 @@ else
 {
 	$comment_filename = 'comments' . DIRECTORY_SEPARATOR . $file_name;
 	if (save_as_file($comment_filename, $yaml_data))
-	{
-		log_to("    Comments saved as '$comment_filename'");
-	}
+		{ log_to("\tComment saved as '$comment_filename'"); }
 }
 
 
@@ -160,11 +155,11 @@ $mail->set_attachment($yaml_data, $file_name);
 
 if ($mail->send($EMAIL_ADDRESS))
 {
-	log_to("    Sent as email to '$EMAIL_ADDRESS'");
+	log_to("\tSent as email to '$EMAIL_ADDRESS'");
 	include $COMMENT_RECEIVED;
 }
 else
 {
-	log_to("    ERROR: Unable to send email to '$EMAIL_ADDRESS'. Diagnose ASAP!");
+	log_to("\tERROR: Unable to send email to '$EMAIL_ADDRESS'. Diagnose ASAP!");
 	echo "There was a problem sending the comment. Please contact the site's owner.";
 }
