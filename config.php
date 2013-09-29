@@ -26,10 +26,20 @@ $COMMENT_INVALID = "html/redirect_to_blog.html";
 // will be used. The list of extensions can be found in `configuration.rb`
 // and is dependent on the converters installed in Jekyll. The default 
 // extensions (at least as of Jekyll 1.2.1) are:
+// 
 //    Markdown => markdown, mkd, mkdn, md
 //    Textile  => textile
-// If you want the comment to just be treated as HTML, use 
-//    '.html', '.txt', or just an emtpy string ''.
+// 
+// And a few custom extensions are interpreted by `static_comments.rb`:
+//
+//    Plaintext => txt
+// All HTML is escaped.
+//
+//    HTML => html, htm
+// HTML is allowed, but these "potentially unwanted" tags are stripped out: 
+// <script>, <!-- comments -->, and <style> are removed.
+// Newlines are converted to <br />
+// 
 $COMMENT_FILENAME_EXT = '.md';
 
 // Format of the date you want to use in your comments.  See
