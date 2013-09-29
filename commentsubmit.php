@@ -98,6 +98,10 @@ $COMMENT_BODY = get_post_field('comment', "");
 unset($_POST['comment']);
 $COMMENT_DATE = date($DATE_FORMAT);
 
+$COMMENT_PRIVATE = (get_post_field('private') == "true");
+unset($_POST['private']);
+unset($_POST['published']); // Prevent any funny business by messing with POST values
+
 $POST_TITLE = get_post_field('post_title', "Unknown post");
 $POST_ID = get_post_field('post_id', "");
 unset($_POST['post_id']);
@@ -106,6 +110,7 @@ $yaml_data  = "---\n";
 $yaml_data .= "post_id: $POST_ID\n";
 $yaml_data .= "date: $COMMENT_DATE\n";
 $yaml_data .= get_post_data_as_yaml();
+if ($COMMENT_PRIVATE) $yaml_data .= "published: false\n";
 $yaml_data .= "---\n";
 
 $yaml_data .= $COMMENT_BODY;
@@ -116,7 +121,8 @@ $file_date = date('Y-m-d-H-i-s');
 $file_name = Mail::filter_filename($POST_ID, '-') . "-comment-$file_date" . $COMMENT_FILENAME_EXT;
 
 
-$title = "Comment from $COMMENTER_NAME on '$POST_TITLE'";
+$title = $COMMENT_PRIVATE ? "Comment" : "Private message";
+$title .= " from $COMMENTER_NAME on '$POST_TITLE'";
 log_to($title);
 
 
