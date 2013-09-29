@@ -3,6 +3,7 @@
 /**
  * commentsubmit.php -- Receive comments and e-mail them to someone
  * Copyright (C) 2011 Matt Palmer <mpalmer@hezmatt.org>
+ * Copyright (C) 2013 Andreas Renberg <contact@iqandreas.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU General Public License version 3, as

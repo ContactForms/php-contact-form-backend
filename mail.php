@@ -2,7 +2,7 @@
 
 /**
  * mail.php -- Send emails (simplified) in utf8 format
- * Copyright (C) 2012 Andreas Renberg <iq_andreas@hotmail.com>
+ * Copyright (C) 2012-2013 Andreas Renberg <contact@iqandreas.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU General Public License version 3, as
