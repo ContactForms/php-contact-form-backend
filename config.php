@@ -74,7 +74,7 @@ $SPAMCHECK_COMMENTS = true;
 /**
  * Email the comments to the recipient specified above (can be disabled, for
  * instance, if your inbox is getting flooded with spam comments, and you
- * would much rather just use the admin interface.
+ * would much rather just use the admin interface.)
  */
 $EMAIL_COMMENTS = true;
 
