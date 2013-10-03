@@ -104,12 +104,12 @@ $COMMENT_PRIVATE = (get_post_field('private') == "true");
 unset($_POST['private']);
 unset($_POST['published']); // Prevent any funny business by messing with POST values
 
-$POST_TITLE = get_post_field('post_title', "Unknown post");
-$POST_ID = get_post_field('post_id', "");
-unset($_POST['post_id']);
+$PAGE_TITLE = get_post_field('page_title', "Unknown post");
+$PAGE_ID = get_post_field('page_id', "");
+unset($_POST['page_id']);
 
 $yaml_data  = "---\n";
-$yaml_data .= "post_id: $POST_ID\n";
+$yaml_data .= "page_id: $PAGE_ID\n";
 $yaml_data .= "date: $COMMENT_DATE\n";
 $yaml_data .= get_post_data_as_yaml();
 if ($COMMENT_PRIVATE) $yaml_data .= "published: false\n";
@@ -120,11 +120,11 @@ $yaml_data .= $COMMENT_BODY;
 // Check for missing period before extension (or ignores it if no extension is given)
 if (preg_match('/^[^.].*$/', $COMMENT_FILENAME_EXT)) { $COMMENT_FILENAME_EXT = ".$COMMENT_FILENAME_EXT"; }
 $file_date = date('Y-m-d-H-i-s');
-$file_name = Mail::filter_filename($POST_ID, '-') . "-comment-$file_date" . $COMMENT_FILENAME_EXT;
+$file_name = Mail::filter_filename($PAGE_ID, '-') . "-comment-$file_date" . $COMMENT_FILENAME_EXT;
 
 
 $title = $COMMENT_PRIVATE ? "Comment" : "Private message";
-$title .= " from $COMMENTER_NAME on '$POST_TITLE'";
+$title .= " from $COMMENTER_NAME on '$PAGE_TITLE'";
 log_to($title);
 
 
