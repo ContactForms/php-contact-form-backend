@@ -5,7 +5,7 @@ include_once 'includes.php';
 function delete_spam($delete_file_name)
 {
 	$delete_file_name = basename($delete_file_name); // Prevent injection (just in case)
-	$delete_file = SPAM_DIR . $delete_file_name;
+	$delete_file = SPAM_DIR . DIRECTORY_SEPARATOR . $delete_file_name;
 	
 	if (file_exists($delete_file))
 	{
@@ -18,15 +18,27 @@ function delete_spam($delete_file_name)
 	}
 }
 
+function get_spam_comments()
+{
+	$files = array();
+	$all_files = scandir(SPAM_DIR);
+	foreach($all_files as $filename)
+	{
+		if($filename === '.' || $filename === '..') { continue; }
+		if($filename === '.htaccess') { continue; }
+		if(!is_file(SPAM_DIR . DIRECTORY_SEPARATOR . $filename)) { continue; }
+		$files []= $filename;
+	}
+	return $files;
+}
+
 if (isset($_GET['clear']))
 {
-	// MAIN CONTENTS
-	$yaml_files = glob(SPAM_DIR . '*.yaml');
-
-	$num_files_total = count($yaml_files);
+	$spam_files = get_spam_comments();
+	$num_files_total = count($spam_files);
 	$num_files_deleted = 0;
 
-	foreach ($yaml_files as $filename) 
+	foreach ($spam_files as $filename) 
 	{
 		delete_spam($filename);
 		$num_files_deleted++;

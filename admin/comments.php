@@ -18,6 +18,20 @@ function list_file_contents($file_name)
 	echo $file_contents_html.HR;
 }
 
+function get_comments()
+{
+	$files = array();
+	$all_files = scandir(COMMENTS_DIR);
+	foreach($all_files as $filename)
+	{
+		if($filename === '.' || $filename === '..') { continue; }
+		if($filename === '.htaccess') { continue; }
+		if(!is_file(COMMENTS_DIR . DIRECTORY_SEPARATOR . $filename)) { continue; }
+		$files []= $filename;
+	}
+	return $files;
+}
+
 if (isset($_GET['delete']))
 {
 	$delete_file_name = basename($_GET['delete']); // Clean from any injection using ../ syntax
@@ -59,11 +73,8 @@ if (isset($_GET['download']))
 
 echo RETURN_LINK;
 
-$yaml_files = glob(COMMENTS_DIR . '*.yaml');
-// Remove directory identifiers!
-$yaml_files = array_map('basename', $yaml_files);
-
-$num_comments = count($yaml_files);
+$comment_files = get_comments();
+$num_comments = count($comment_files);
 $max_comments = 5;
 $num_files_opened = 0;
 
@@ -76,7 +87,7 @@ echo "Showing $displayed_comments of $num_comments".HR;
 //	if (($num_files_opened++ < $displayed_comments) && !$fileinfo->isDot() && ($fileinfo->getFilename() != 'index.php')) 
 //	    list_file_contents($directory_name . DIRECTORY_SEPARATOR . $fileinfo->getFilename());
 
-foreach ($yaml_files as $filename) {
+foreach ($comment_files as $filename) {
 	if ($num_files_opened++ < $displayed_comments) 
 	{
 	    list_file_contents($filename);
