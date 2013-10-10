@@ -37,7 +37,12 @@ class Mail
 	{
 		$reserved = preg_quote('\/:*?"<>|', '/'); //characters that are  illegal on any of the 3 major OS's
 		//replaces all characters up through space and all past ~ along with the above reserved characters
-		return preg_replace("/([\\x00-\\x20\\x7f-\\xff{$reserved}]+)/", $replace, $filename);
+		// This first trims the illegal characters from the beginning, then the end, and then and then replaces
+		// the ones inside the file with the specified character. 
+		// I wish I knew a regex to condense these three into a single line.
+		$value = preg_replace("/^[\\x00-\\x20\\x7f-\\xff{$reserved}]+/", "", $filename);
+		$value = preg_replace("/[\\x00-\\x20\\x7f-\\xff{$reserved}]+$/", "", $value);
+		return preg_replace("/[\\x00-\\x20\\x7f-\\xff{$reserved}]+/", $replace, $value);
 	}
 	
 	public static function create_full_address($email, $name = "")
