@@ -5,7 +5,7 @@ include_once 'includes.php';
 function delete_comment($delete_file_name, $reason = "")
 {
 	$delete_file_name = basename($delete_file_name); // Prevent injection (just in case)
-	$delete_file = COMMENTS_DIR . $delete_file_name;
+	$delete_file = COMMENTS_DIR . DIRECTORY_SEPARATOR . $delete_file_name;
 	
 	if (file_exists($delete_file))
 	{
@@ -16,6 +16,20 @@ function delete_comment($delete_file_name, $reason = "")
 	{
 		echo "Cannot find <i>$delete_file_name</i>.".NL."Did you already delete it?".NL;
 	}
+}
+
+function get_comments()
+{
+	$files = array();
+	$all_files = scandir(COMMENTS_DIR);
+	foreach($all_files as $filename)
+	{
+		if($filename === '.' || $filename === '..') { continue; }
+		if($filename === '.htaccess') { continue; }
+		if(!is_file(COMMENTS_DIR . DIRECTORY_SEPARATOR . $filename)) { continue; }
+		$files []= $filename;
+	}
+	return $files;
 }
 
 // MAIN CONTENTS
@@ -34,18 +48,17 @@ elseif (isset($_GET['run']))
 	// For now, only allow checking comments
 	if ($_GET['run'] == 'comments')
 	{
-		$yaml_files = glob(COMMENTS_DIR . '*.yaml');
-
-		//$num_comments = count($yaml_files);
+		$comment_files = get_comments();
+		//$num_comments = count($comment_files);
 		$num_files_deleted = 0;
 		$num_files_opened = 0;
 
 		require_once SPAMFILTER;
 		$filter = new SpamFilter();
 
-		foreach ($yaml_files as $filename) 
+		foreach ($comment_files as $filename) 
 		{
-			$file_contents = file_get_contents($filename);
+			$file_contents = file_get_contents(COMMENTS_DIR . DIRECTORY_SEPARATOR . $filename);
 			$num_files_opened++;
 	
 			$SPAM = $filter->check_text($file_contents);
