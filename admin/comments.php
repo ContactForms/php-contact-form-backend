@@ -5,7 +5,9 @@ include_once 'includes.php';
 function list_file_contents($file_name)
 {
 	$file_path = COMMENTS_DIR . DIRECTORY_SEPARATOR . $file_name;
-	$file_contents_html = nl2br(file_get_contents($file_path));
+	$file_contents = file_get_contents($file_path);
+	$file_contents_html = htmlspecialchars($file_contents);
+	$file_contents_html = nl2br($file_contents_html);
 
 	$delete_link = "comments.php?delete=" . urlencode($file_name);
 	$download_link = "comments.php?download=" . urlencode($file_name);
