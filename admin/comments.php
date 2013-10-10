@@ -77,7 +77,7 @@ echo RETURN_LINK;
 
 $comment_files = get_comments();
 $num_comments = count($comment_files);
-$max_comments = 5;
+$max_comments = 10;
 $num_files_opened = 0;
 
 $displayed_comments = ($max_comments > $num_comments) ? $num_comments : $max_comments;
