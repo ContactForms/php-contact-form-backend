@@ -174,6 +174,14 @@ $yaml_data .= "---\n";
 
 $yaml_data .= $COMMENT_BODY;
 
+if (isset($_GET['debug']))
+{
+	print "<html><body><pre>";
+	print $yaml_data;
+	print "</pre></body></html>";
+	exit;
+}
+
 // Check for missing period before extension (or ignores it if no extension is given)
 if (preg_match('/^[^.].*$/', $COMMENT_FILENAME_EXT)) { $COMMENT_FILENAME_EXT = ".$COMMENT_FILENAME_EXT"; }
 $file_date = date('Y-m-d-H-i-s');
