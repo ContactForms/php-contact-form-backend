@@ -28,25 +28,79 @@ function get_post_field($key, $defaultValue = "")
 	return (isset($_POST[$key]) && !empty($_POST[$key])) ? $_POST[$key] : $defaultValue;
 }
 
+function field_to_yaml($array, $key, $force = false)
+{
+	if (!$force && !isset($array[$key])) return "";
+	
+	$value = $array[$key];
+	if (strstr($value, "\n") != "") 
+	{
+		// Value has newlines... need to indent them so the YAML
+		// looks right
+		$value = str_replace("\n", "\n  ", $value);
+	}
+	// It's easier just to single-quote everything than to try and work
+	// out what might need quoting
+	$value = str_replace("'", "''", $value);
+	
+	return "$key: '$value'\n";
+}
+
 function get_post_data_as_yaml()
 {
 	$yaml_data = "";
-	
 	foreach ($_POST as $key => $value) 
-	{
-		if (strstr($value, "\n") != "") 
-		{
-			// Value has newlines... need to indent them so the YAML
-			// looks right
-			$value = str_replace("\n", "\n  ", $value);
-		}
-		// It's easier just to single-quote everything than to try and work
-		// out what might need quoting
-		$value = "'" . str_replace("'", "''", $value) . "'";
-		$yaml_data .= "$key: $value\n";
-	}
-	
+		{ $yaml_data .= field_to_yaml($_POST, $key); }
 	return $yaml_data;
+}
+
+function get_sender_data_as_yaml()
+{
+	$sender_data = "";
+	# Via http://stackoverflow.com/questions/15024060/how-to-completely-detect-proxies-using-php
+	$sender_headers = array(
+		'REMOTE_ADDR',
+		'HTTP_USER_AGENT',
+		'HTTP_ACCEPT',
+		'HTTP_ACCEPT_LANGUAGE',
+		'HTTP_REFERER',
+		'REQUEST_TIME'
+	);
+	foreach($sender_headers as $key)
+		{ $sender_data .= field_to_yaml($_SERVER, $key); }
+	
+	return $sender_data;
+}
+
+# May or may not actually find something. But it's worth a try.
+function detect_sender_proxy()
+{
+	$proxy_data = "";
+	# Via http://stackoverflow.com/questions/15024060/how-to-completely-detect-proxies-using-php
+	$proxy_headers = array(
+		'HTTP_VIA',
+		'HTTP_X_FORWARDED_FOR',
+		'HTTP_FORWARDED_FOR',
+		'HTTP_X_FORWARDED',
+		'HTTP_FORWARDED',
+		'HTTP_CLIENT_IP',
+		'HTTP_FORWARDED_FOR_IP',
+		'VIA',
+		'X_FORWARDED_FOR',
+		'FORWARDED_FOR',
+		'X_FORWARDED',
+		'FORWARDED',
+		'CLIENT_IP',
+		'FORWARDED_FOR_IP',
+		'HTTP_PROXY_CONNECTION'
+	);
+	foreach($proxy_headers as $key)
+		{ $proxy_data .= field_to_yaml($_SERVER, $key); }
+	
+	if ($proxy_data != "")
+		return "proxy_detected: true\n" . $proxy_data;
+	else
+		return "";
 }
 
 function log_to($string, $filename = 'admin/mail.log')
@@ -112,6 +166,9 @@ $yaml_data  = "---\n";
 $yaml_data .= "page_id: $PAGE_ID\n";
 $yaml_data .= "date: $COMMENT_DATE\n";
 $yaml_data .= get_post_data_as_yaml();
+$yaml_data .= "\n"; # Separate off all the "techincal" data for simplicity
+$yaml_data .= get_sender_data_as_yaml();
+$yaml_data .= detect_sender_proxy();
 if ($COMMENT_PRIVATE) $yaml_data .= "published: false\n";
 $yaml_data .= "---\n";
 
@@ -123,7 +180,7 @@ $file_date = date('Y-m-d-H-i-s');
 $file_name = Mail::filter_filename($PAGE_ID, '-') . "-comment-$file_date" . $COMMENT_FILENAME_EXT;
 
 
-$title = $COMMENT_PRIVATE ? "Private message" : "Comment";
+$title = $COMMENT_PRIVATE ? "Comment" : "Private message";
 $title .= " from $COMMENTER_NAME on '$PAGE_TITLE'";
 log_to($title);
 
