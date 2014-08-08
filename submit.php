@@ -123,7 +123,7 @@ $file_date = date('Y-m-d-H-i-s');
 $file_name = Mail::filter_filename($PAGE_ID, '-') . "-comment-$file_date" . $COMMENT_FILENAME_EXT;
 
 
-$title = $COMMENT_PRIVATE ? "Comment" : "Private message";
+$title = $COMMENT_PRIVATE ? "Private message" : "Comment";
 $title .= " from $COMMENTER_NAME on '$PAGE_TITLE'";
 log_to($title);
 
